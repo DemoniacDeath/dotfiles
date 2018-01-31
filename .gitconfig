@@ -1,0 +1,27 @@
+[user]
+        name = Michael Skvortsov
+        email = michael@mangoerp.eu
+[color]
+        branch = auto
+        diff = auto
+        interactive = auto
+        status = auto
+[alias]
+        st                      = status
+        ci                      = commit
+        co                      = checkout
+        br                      = branch
+        hist                    = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=iso
+        line                    = log --pretty=format:\"%h %ad | %s%d [%an]\" --date=iso --first-parent
+        subj                    = log -1 --no-merges -pretty=format:\"%s\"
+	ctags = !.git/hooks/ctags
+[core]
+        editor = vi
+[diff]
+        tool = vimdiff
+[difftool]
+        prompt = false
+[push]
+        default = simple
+[init]
+	templatedir = ~/.git_template
