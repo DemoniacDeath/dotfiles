@@ -13,7 +13,7 @@
         br                      = branch
         hist                    = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=iso
         line                    = log --pretty=format:\"%h %ad | %s%d [%an]\" --date=iso --first-parent
-        subj                    = log -1 --no-merges -pretty=format:\"%s\"
+        subj                    = log -1 --no-merges --pretty=format:\"%s\"
 	ctags = !.git/hooks/ctags
 [core]
         editor = vi
