@@ -18,11 +18,11 @@ call plug#begin()
 
   Plug 'scrooloose/nerdtree'
 
-  Plug '~/.config/nvim/plugins/confirmQuit'
+"  Plug '~/.config/nvim/plugins/confirmQuit'
 
 call plug#end()
 
-nnoremap <silent> <Leader>q :bd<CR>
+nnoremap <silent> <Leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
 nnoremap <silent> <Leader>QQ :bd!<CR>
 nnoremap <silent> <Leader>w :w<CR>
 nnoremap <silent> <Leader>l :Buffers<CR>
@@ -34,8 +34,10 @@ nnoremap <silent> <Leader>f :Ag <CR>
 nnoremap <silent> <Leader>F :Ag <C-R><C-W><CR>
 nnoremap <silent> <Leader>c :source ~/.config/nvim/init.vim<CR>
 nnoremap <silent> <Leader>z :FZF<CR>
+nnoremap <silent> <Leader>Z :Locate <C-R><C-W><CR>
 nnoremap <silent> <Leader>] :NERDTreeToggle<CR>
 nnoremap <silent> <Leader>t :tabnew<CR>
+tnoremap <C-S> <C-\><C-N>
 
 command! -bang -nargs=* BTags call 
   \ fzf#vim#buffer_tags(<q-args>, 

@@ -22,6 +22,6 @@
 [difftool]
         prompt = false
 [push]
-        default = simple
+        default = current
 [init]
 	templatedir = ~/.git_template

@@ -37,15 +37,15 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 set $ws1 "1: Chrome "
-set $ws2 "2: Slack "
-set $ws3 "3: Thunderbird "
+set $ws2 "2: Sublime Text "
+set $ws3 "3: Slack "
 set $ws4 "4: Telegram "
-set $ws5 "5"
-set $ws6 "6"
+set $ws5 "5: Skype "
+set $ws6 "6: Thunderbird "
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
-set $ws10 "10"
+set $ws10 "10: Music "
 set $wst "Terminals "
 
 bindsym $mod+1 workspace $ws1
@@ -58,22 +58,35 @@ bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
+bindsym Ctrl+F12 workspace $wst
 bindsym Shift+F12 workspace $wst
 
 assign [class="Google-chrome"] $ws1
 exec google-chrome-stable
 
-assign [class="Slack"] $ws2
-exec slack
+assign [class="Sublime_text"] $ws2
+exec sublime_text
 
-assign [class="Thunderbird"] $ws3
-exec thunderbird
+assign [class="Slack"] $ws3
+exec slack
 
 assign [class="TelegramDesktop"] $ws4
 exec telegram-latest.telegram
 
+assign [class="Skype"] $ws5
+exec skypeforlinux
+
+assign [class="Thunderbird"] $ws6
+exec thunderbird
+
+assign [class="Rhythmbox"] $ws10
+exec rhythmbox
+
 assign [class="UXTerm"] $wst
-exec uxterm nvim
+exec uxterm
+
+bindsym Ctrl+Mod1+Left workspace prev
+bindsym Ctrl+Mod1+Right workspace next
 
 bindsym $mod+Shift+1 move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
@@ -110,7 +123,11 @@ bar {
 
 bindsym XF86AudioRaiseVolume    exec --no-startup-id pactl set-sink-volume 0 +5%
 bindsym XF86AudioLowerVolume    exec --no-startup-id pactl set-sink-volume 0 -5%
-bindsym XF86AudioMute           exec --no-startup-id pactl set-sink mute 0 toggle
+bindsym XF86AudioMute           exec --no-startup-id pactl set-sink-mute 0 toggle
+
+bindsym XF86AudioPlay           exec --no-startup-id rhythmbox-client --play-pause
+bindsym XF86AudioNext           exec --no-startup-id rhythmbox-client --next
+bindsym XF86AudioPrev           exec --no-startup-id rhythmbox-client --previous
 
 exec_always feh --bg-scale /home/skvortsov/Pictures/wallpaper.png
 
