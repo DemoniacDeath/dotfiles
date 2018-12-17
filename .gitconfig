@@ -24,7 +24,8 @@
         mg-master               = "!f(){ git rs-master && git merge origin/$1 -s recursive -Xignore-space-at-eol --no-ff --no-commit; }; f"
         rl-master               = "!f(){ confirm && git rs-master && git merge origin/$1 -s recursive -Xignore-space-at-eol --no-ff --no-edit && git push; }; f"
         rs-merge                = reset --merge
-        di-index                = diff --cached
+	di-index                = diff --cached
+	di-names		= "!f(){ git diff --name-only | uniq; }; f"
 [core]
         editor = vi
 	mergeoptions = --no-edit
