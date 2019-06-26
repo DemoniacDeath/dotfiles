@@ -1,6 +1,6 @@
 [user]
         name = Michael Skvortsov
-        email = michael@mangoerp.eu
+        email = demoniac.death@gmail.com
 [color]
         branch = auto
         diff = auto
@@ -14,21 +14,13 @@
         hist                    = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=iso
         line                    = log --pretty=format:\"%h %ad | %s%d [%an]\" --date=iso --first-parent
         subj                    = log -1 --no-merges --pretty=format:\"%s\"
-        rs-demo                 = "!f(){ git co demo -f && git fetch && git reset --hard origin/demo; }; f"
-        mg-demo                 = "!f(){ git rs-demo && git merge origin/$1 -s recursive -Xignore-space-at-eol --no-ff --no-commit; }; f"
-        rl-demo                 = "!f(){ git rs-demo && git merge origin/$1 -s recursive -Xignore-space-at-eol --no-ff --no-edit && git push; }; f"
-        rs-demo2                = "!f(){ git co demo2 -f && git fetch && git reset --hard origin/demo2; }; f"
-        mg-demo2                = "!f(){ git rs-demo2 && git merge origin/$1 -s recursive -Xignore-space-at-eol --no-ff --no-commit; }; f"
-        rl-demo2                = "!f(){ git rs-demo2 && git merge origin/$1 -s recursive -Xignore-space-at-eol --no-ff --no-edit && git push; }; f"
-        rs-master               = "!f(){ git co master -f && git fetch && git reset --hard origin/master; }; f"
-        mg-master               = "!f(){ git rs-master && git merge origin/$1 -s recursive -Xignore-space-at-eol --no-ff --no-commit; }; f"
-        rl-master               = "!f(){ confirm && git rs-master && git merge origin/$1 -s recursive -Xignore-space-at-eol --no-ff --no-edit && git push; }; f"
         rs-merge                = reset --merge
 	di-index                = diff --cached
 	di-names		= "!f(){ git diff --name-only | uniq; }; f"
 [core]
         editor = vi
 	mergeoptions = --no-edit
+	excludesfile = /home/demoniac/.gitignore_global
 [diff]
         tool = vimdiff
 [difftool]
