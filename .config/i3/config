@@ -97,6 +97,7 @@ mode "resize" {
         bindsym Right resize grow width 10 px or 10 ppt
         bindsym Return mode "default"
         bindsym Escape mode "default"
+        bindsym $mod+d mode "default"
 }
 
 bindsym $mod+d mode "resize"
@@ -105,5 +106,5 @@ bar {
         status_command i3status
 }
 
-exec --no-startup-id nitrogen --restore
+exec --no-startup-id sh ~/.fehbg
 exec --no-startup-id dunst

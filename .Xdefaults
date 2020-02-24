@@ -1,43 +1,13 @@
-xterm*background: black
-xterm*foreground: white
-xterm.termName: xterm-256color
-xterm.ttyModes: erase ^?
-xterm*faceName: "Fira Code,Fira Code Retina"
-xterm*faceSize: 11
-xterm.vt100.locale: true
-xterm.vt100.metaSendsEscape: true
-xterm.vt100.backarrowKey: false
-xterm.vt100.translations: #override \n\
-Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
-Ctrl Shift <Key>V: insert-selection(CLIPBOARD) \n\
-Shift <Key>Prior:string(0x1b) string("[5;3~") \n\
-Shift <Key>Next:string(0x1b) string("[6;3~")
-
-uxterm*background: black
-uxterm*foreground: white
-uxterm.termName: xterm-256color
-uxterm.ttyModes: erase ^?
-uxterm*faceName: "Fira Code,Fira Code Retina"
-uxterm*faceSize: 11
-uxterm.vt100.locale: true
-uxterm.vt100.metaSendsEscape: true
-uxterm.vt100.backarrowKey: false
-uxterm.vt100.translations: #override \n\
-Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
-Ctrl Shift <Key>V: insert-selection(CLIPBOARD) \n\
-Shift <Key>Prior:string(0x1b) string("[5;3~") \n\
-Shift <Key>Next:string(0x1b) string("[6;3~")
-
-x-terminal-emulator*background: black
-x-terminal-emulator*foreground: white
-x-terminal-emulator.termName: xterm-256color
-x-terminal-emulator.ttyModes: erase ^?
-x-terminal-emulator*faceName: "Fira Code,Fira Code Retina"
-x-terminal-emulator*faceSize: 11
-x-terminal-emulator.vt100.locale: true
-x-terminal-emulator.vt100.metaSendsEscape: true
-x-terminal-emulator.vt100.backarrowKey: false
-x-terminal-emulator.vt100.translations: #override \n\
+UXTerm.termName: xterm-256color
+UXTerm.ttyModes: erase ^?
+UXTerm.VT100.background: black
+UXTerm.VT100.foreground: white
+UXTerm.VT100.faceName: Fira Code,Fira Code Retina
+UXTerm.VT100.faceSize: 12
+UXTerm.VT100.locale: true
+UXTerm.VT100.cutNewline: false
+UXTerm.VT100.charClass: 33:48,35:48,37:48,42:48,45-47:48,64:48,95:48,126:48
+UXTerm.VT100.translations: #override \n\
 Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
 Ctrl Shift <Key>V: insert-selection(CLIPBOARD) \n\
 Shift <Key>Prior:string(0x1b) string("[5;3~") \n\
