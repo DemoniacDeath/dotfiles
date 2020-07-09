@@ -5,6 +5,7 @@ UXTerm.VT100.foreground: white
 UXTerm.VT100.faceName: Fira Code,Fira Code Retina
 UXTerm.VT100.faceSize: 12
 UXTerm.VT100.locale: true
+UXTerm.VT100.metaSendsEscape: true
 UXTerm.VT100.cutNewline: false
 UXTerm.VT100.charClass: 33:48,35:48,37:48,42:48,45-47:48,64:48,95:48,126:48
 UXTerm.VT100.translations: #override \n\
