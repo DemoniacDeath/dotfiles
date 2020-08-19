@@ -18,7 +18,7 @@
 	di-index                = diff --cached
 	di-names		= "!f(){ git diff --name-only | uniq; }; f"
 [core]
-        editor = vi
+        editor = vim
 	mergeoptions = --no-edit
 	excludesfile = /home/demoniac/.gitignore_global
 [diff]
@@ -26,4 +26,8 @@
 [difftool]
         prompt = false
 [push]
-        default = current
+	default = current
+[tag]
+	sort = version:refname
+[pull]
+	rebase = false
