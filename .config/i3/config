@@ -1,44 +1,68 @@
+# setting modifier to Super
 set $mod Mod4
+
+# font
 font pango:Fira Code Retina 12
 
+# no border
 for_window [class=".*"] border pixel 0
 
+# makes it so that if you select the WS you are 
+# already on - it moves you to the one you were 
+# on before
 workspace_auto_back_and_forth yes
 
+# moving windows with Super pressed
 floating_modifier $mod
 
+# terminal
 bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
 
+# kill window
 bindsym $mod+Shift+q kill
 
+# bring up dmenu
 bindsym $mod+r exec --no-startup-id j4-dmenu-desktop
+
+# bring up rofi
 bindsym $mod+Tab exec --no-startup-id rofi -combi-modi window -theme solarized -font "hack 10" -show combi
 
+# focusing between windows
 bindsym $mod+Mod1+Left focus left
+bindsym $mod+Mod1+Right focus right
 bindsym $mod+Mod1+Down focus down
 bindsym $mod+Mod1+Up focus up
-bindsym $mod+Mod1+Right focus right
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
 
+# moving windows within container
 bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Right move right
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
 
+# set split mode for container
 bindsym $mod+h split h
-
 bindsym $mod+v split v
 
+# make window fullscreen
 bindsym $mod+f fullscreen toggle
 
+# set layout mode
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
+# make window float
 bindsym $mod+Shift+f floating toggle
+
+# toggle focus between floating and splitting windows
 bindsym $mod+Mod1+f focus mode_toggle
 
+# focus on parent container
 bindsym $mod+a focus parent
 
+# workspace definitions
 set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3"
@@ -51,6 +75,7 @@ set $ws9 "9"
 set $ws10 "10"
 set $wst "T"
 
+# navigating workspaces
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
@@ -63,15 +88,12 @@ bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
 bindsym Ctrl+F12 workspace $wst
 bindsym Shift+F12 workspace $wst
-
 bindsym $mod+Left workspace prev
 bindsym $mod+Right workspace next
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
 
+# move windows to workspaces
 bindsym $mod+Ctrl+Left move container to workspace prev
 bindsym $mod+Ctrl+Right move container to workspace next
-
 bindsym $mod+Shift+1 move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
 bindsym $mod+Shift+3 move container to workspace $ws3
@@ -83,13 +105,20 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
-
-
+# i3 controls
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# lock screen
 bindsym $mod+l exec i3lock
 
+# media keys
+bindsym XF86AudioPrev exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+bindsym XF86AudioPlay exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause 
+bindsym XF86AudioNext exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+
+# resizing windows
 mode "resize" {
         bindsym Left resize shrink width 10 px or 10 ppt
         bindsym Down resize grow height 10 px or 10 ppt
@@ -102,11 +131,18 @@ mode "resize" {
 
 bindsym $mod+d mode "resize"
 
-bar {
-        status_command i3status
-}
+# status bar
+#bar {
+#        status_command i3status | ~/.bin/i3_spotify_status.py
+#}
 
+# polybar
+exec_always --no-startup-id ~/.bin/polybar.sh
+
+# setting background image
 exec --no-startup-id sh ~/.fehbg
+
+# desktop notifications
 exec --no-startup-id dunst
 
 # for intellij
@@ -114,10 +150,38 @@ for_window [class="^jetbrains-.+"][window_type=dialog] focus
 for_window [class="^jetbrains-.+" title="win0"] floating enable border none
 focus_follows_mouse no
 
-# Screenshots
-
 # take a screenshot of a screen region and copy it to a clipboard
 bindsym --release Shift+Print exec "screenshot -s /home/demoniac/Pictures/Screenshots/"
 
 # take a screenshot of a whole window and copy it to a clipboard
 bindsym --release Print exec "screenshot /home/demoniac/Pictures/Screenshots/"
+
+# media keys
+bindsym Ctrl+Shift+Mod1+F10 exec \
+				dbus-send --print-reply --dest=org.mpris.MediaPlayer2.clementine /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous || \
+				dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+bindsym Ctrl+Shift+Mod1+F11 exec \
+				dbus-send --print-reply --dest=org.mpris.MediaPlayer2.clementine /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause || \
+				dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+bindsym Ctrl+Shift+Mod1+F12 exec \
+				dbus-send --print-reply --dest=org.mpris.MediaPlayer2.clementine /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next || \
+				dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+
+# volume control
+bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+
+bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 5%-
+bindsym XF86AudioMute exec amixer -D pulse sset Master -- toggle
+
+# brightness
+bindsym XF86MonBrightnessUp exec xbacklight + 10
+bindsym XF86MonBrightnessDown exec xbacklight - 10
+
+# multi-monitor setup
+bindsym $mod+F1 move workspace to output eDP-1
+bindsym $mod+F2 move workspace to output HDMI-1
+
+# X debug
+bindsym $mod+X --release exec "xprop | xclip -selection clipboard -i"
+
+# autostart
+exec dex -ae i3

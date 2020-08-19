@@ -6,5 +6,7 @@ setopt nosharehistory
 #powerline-daemon -q
 #. /usr/lib/python3.8/site-packages/powerline/bindings/zsh/powerline.zsh
 
+export PATH=$PATH:/home/demoniac/.bin
 export PATH=$PATH:/home/demoniac/.composer/vendor/bin
 eval "$(symfony-autocomplete)"
+[[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc

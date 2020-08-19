@@ -13,3 +13,4 @@ Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
 Ctrl Shift <Key>V: insert-selection(CLIPBOARD) \n\
 Shift <Key>Prior:string(0x1b) string("[5;3~") \n\
 Shift <Key>Next:string(0x1b) string("[6;3~")
+Xcursor.size: 16
