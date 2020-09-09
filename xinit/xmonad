@@ -1,0 +1,5 @@
+~/.fehbg &
+dunst &
+dex -ae xmonad &
+polybar DemoniacDeath &
+exec xmonad

@@ -10,3 +10,4 @@ export PATH=$PATH:/home/demoniac/.bin
 export PATH=$PATH:/home/demoniac/.composer/vendor/bin
 eval "$(symfony-autocomplete)"
 [[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
+. /etc/profile
