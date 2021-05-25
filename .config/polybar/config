@@ -57,10 +57,10 @@ font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:pixelsize=10;1
 font-3 = "Unifont"
 
-#modules-left = i3 spotify
+#modules-left = i3 music
 modules-left = xmonad
-#modules-center = spotify
-modules-right = filesystem backlight-acpi pulseaudio xkeyboard memory cpu wlan eth battery temperature date powermenu
+#modules-center = music
+modules-right = music filesystem backlight-acpi pulseaudio xkeyboard memory cpu wlan eth battery temperature date powermenu
 
 tray-position = right
 tray-padding = 2
@@ -215,7 +215,7 @@ ramp-signal-foreground = ${colors.foreground-alt}
 
 [module/eth]
 type = internal/network
-interface = via_vpn
+interface = enp2s0
 interval = 3.0
 
 format-connected-underline = #55aa55
@@ -342,6 +342,10 @@ menu-0-0 = reboot
 menu-0-0-exec = menu-open-1
 menu-0-1 = power off
 menu-0-1-exec = menu-open-2
+menu-0-2 = reload
+menu-0-2-exec = menu-open-3
+menu-0-3 = exit
+menu-0-3-exec = menu-open-4
 
 menu-1-0 = cancel
 menu-1-0-exec = menu-open-0
@@ -352,6 +356,16 @@ menu-2-0 = power off
 menu-2-0-exec = sudo poweroff
 menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
+
+menu-3-0 = reload
+menu-3-0-exec = xmonad --recompile && xmonad --restart
+menu-3-1 = cancel
+menu-3-1-exec = menu-open-0
+
+menu-4-0 = exit
+menu-4-0-exec = xmonadctl quit-wm
+menu-4-1 = cancel
+menu-4-1-exec = menu-open-0
 
 [settings]
 screenchange-reload = true
@@ -365,12 +379,12 @@ screenchange-reload = true
 margin-top = 5
 margin-bottom = 5
 
-; vim:ft=dosini
-
-[module/spotify]
+[module/music]
 type = custom/script
 interval = 1
 format-prefix = " "
 format = <label>
-exec = ~/.bin/polybar_spotify_status.py -f '{artist}: {song}'
+exec = ~/.bin/polybar_music_status.py -n clementine -f '{artist}: {song}' -t 75
 format-underline = #1db954
+
+; vim:ft=dosini

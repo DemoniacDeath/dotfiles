@@ -2,4 +2,7 @@
 dunst &
 dex -ae xmonad &
 polybar DemoniacDeath &
-exec xmonad
+nm-applet &
+caffeine &
+xmonad
+exit

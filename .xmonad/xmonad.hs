@@ -105,14 +105,14 @@ myLayout = avoidStruts
               delta   = 3/100
               ratio   = 1/2
 --myRunner = "j4-dmenu-desktop"
-myRunner = "j4-dmenu-desktop --dmenu='rofi -dmenu -i'"
+myRunner = "j4-dmenu-desktop --dmenu='rofi -dmenu -i' --no-generic --display-binary"
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- launching and killing programs
     [ ((modm,               xK_Return   ), spawn $ XMonad.terminal conf)
     , ((modm,               xK_r        ), spawn myRunner)
     , ((modm .|. shiftMask, xK_q        ), kill)
-    , ((modm,               xK_l        ), spawn "i3lock")
+    , ((modm,               xK_l        ), spawn "slock")
 
     -- layout
     , ((modm,               xK_f        ), (sendMessage $ Toggle FULL) <+> (sendMessage ToggleStruts))
