@@ -15,3 +15,4 @@ eval "$(symfony-autocomplete)"
 . /etc/profile
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+unsetopt EXTENDED_GLOB

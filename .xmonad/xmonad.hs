@@ -33,6 +33,7 @@ import qualified DBus.Client as D
 import qualified Codec.Binary.UTF8.String as UTF8
 
 main = do
+       xmproc <- spawnPipe "xmobar"
        dbus <- D.connectSession
        D.requestName dbus (D.busName_ "org.xmonad.Log")
          [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
@@ -44,9 +45,14 @@ main = do
          , modMask           = mod4Mask
          , layoutHook        = myLayout
          , manageHook        = myManageHook
-         , handleEventHook   = serverModeEventHookCmd
+         , handleEventHook   = myEventHook
          , keys              = myKeys
-         , logHook           = dynamicLogWithPP (myLogHook dbus)
+         , logHook           = dynamicLogWithPP (
+                                                  myLogHook (hPutStrLn xmproc) 
+                                                  (\id -> xmobarAction ("xmonadctl view\\\"" ++ id ++ "\\\"") "1" id)
+                                                  (\color -> xmobarColor color "")
+                                                )
+
            } `additionalKeys`
          [ ((shiftMask, xK_Print), spawn "screenshot -s /home/demoniac/Pictures/Screenshots/")
          , ((0, xK_Print), spawn "screenshot /home/demoniac/Pictures/Screenshots/")
@@ -93,6 +99,8 @@ myManageHook = (isFullscreen --> doFullFloat)
 myTabConfig = def { fontName = "xft:Fira Code Retina:size=11:antialias=true"
                     }
 
+myEventHook = serverModeEventHookCmd
+
 myLayout = avoidStruts 
          $ windowNavigation 
          $ mkToggle (single FULL)
@@ -116,23 +124,12 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- layout
     , ((modm,               xK_f        ), (sendMessage $ Toggle FULL) <+> (sendMessage ToggleStruts))
-    , ((modm,               xK_s        ), sendMessage NextLayout)
     , ((modm .|. shiftMask, xK_f        ), toggleFloat)
 
-    , ((modm .|. mod1Mask,  xK_Right    ), sendMessage $ Go R)
-    , ((modm .|. mod1Mask,  xK_Left     ), sendMessage $ Go L)
-    , ((modm .|. mod1Mask,  xK_Up       ), sendMessage $ Go U)
-    , ((modm .|. mod1Mask,  xK_Down     ), sendMessage $ Go D)
     , ((modm,               xK_Up       ), windows W.focusUp)
     , ((modm,               xK_Down     ), windows W.focusDown)
     , ((modm,               xK_Page_Up  ), windows W.focusUp)
     , ((modm,               xK_Page_Down), windows W.focusDown)
-
-    , ((modm .|. shiftMask, xK_Right    ), sendMessage $ Swap R)
-    , ((modm .|. shiftMask, xK_Left     ), sendMessage $ Swap L)
-    , ((modm .|. shiftMask, xK_Up       ), sendMessage $ Swap U)
-    , ((modm .|. shiftMask, xK_Down     ), sendMessage $ Swap D)
-
     , ((modm,               xK_s        ), sendMessage $ JumpToLayout "Accordion")
     , ((modm,               xK_w        ), sendMessage $ JumpToLayout "Tabbed Simplest")
     , ((modm,               xK_e        ), sendMessage $ JumpToLayout "Mirror Tall")
@@ -145,7 +142,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- quit, or restart
     , ((modm .|. shiftMask, xK_e        ), io (exitWith ExitSuccess))
-    , ((modm .|. shiftMask, xK_r        ), spawn "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi") -- %! Restart xmonad
+    , ((modm .|. shiftMask, xK_r        ), spawn "if type xmonad; then xmonad --recompile && pkill xmobar ; xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi") -- %! Restart xmonad
 
     -- debug
     , ((modm,               xK_x        ), spawn "xprop | xclip -selection clipboard -i")
@@ -174,22 +171,19 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
       -- Float and centre a tiled window, sink a floating window
       toggleFloat = floatOrNot (withFocused $ windows . W.sink) (withFocused centreFloat)
 
-myLogHook :: D.Client -> PP
-myLogHook dbus = def {
-    ppOutput  = dbusOutput dbus
+myLogHook output clickable fgColor = def {
+    ppOutput  = output
   , ppLayout  = \_ -> ""
   , ppTitle   = \_ -> ""
-  , ppCurrent = (fgColor barCurrentWorkspaceColor) . (wrap "[" "]") . clickable 
---  , ppVisible = (fgColor barOtherWorkspaceColor) . clickable . ignoreNSP
+  , ppCurrent = (fgColor barCurrentWorkspaceColor) . (wrap "[" "]") . clickable
+  , ppVisible = (fgColor barOtherWorkspaceColor) . (wrap "<" ">") . clickable . ignoreNSP
   , ppHidden  = (fgColor barOtherWorkspaceColor) . clickable . ignoreNSP
   , ppSep     = " | "
   }
   where
-    clickable id = "%{A:xmonadctl view\\\"" ++ id ++ "\\\":}" ++ id ++ "%{A}"
     ignoreNSP id
       | id == "NSP" = ""
       | otherwise   = id
-    fgColor color = wrap ("%{F" ++ color ++ "}") "%{F-}"
 
 dbusOutput :: D.Client -> String -> IO ()
 dbusOutput dbus str = do
