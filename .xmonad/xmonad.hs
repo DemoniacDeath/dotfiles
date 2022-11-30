@@ -56,7 +56,7 @@ main = do
            } `additionalKeys`
          [ ((shiftMask, xK_Print), spawn "screenshot -s /home/demoniac/Pictures/Screenshots/")
          , ((0, xK_Print), spawn "screenshot /home/demoniac/Pictures/Screenshots/")
-         , ((controlMask, xK_F12), namedScratchpadAction scratchpads "uxterm")
+--       , ((controlMask, xK_F12), namedScratchpadAction scratchpads "uxterm")
 
     -- music controls
          , ((mod1Mask .|. shiftMask .|. controlMask, xK_F10), spawn $ musicCommands ! "Previous")
@@ -117,7 +117,8 @@ myRunner = "j4-dmenu-desktop --dmenu='rofi -dmenu -i' --no-generic --display-bin
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- launching and killing programs
-    [ ((modm,               xK_Return   ), spawn $ XMonad.terminal conf)
+    [ ((modm,               xK_grave    ), namedScratchpadAction scratchpads "uxterm")
+    , ((modm,               xK_Return   ), spawn $ XMonad.terminal conf)
     , ((modm,               xK_r        ), spawn myRunner)
     , ((modm .|. shiftMask, xK_q        ), kill)
     , ((modm,               xK_l        ), spawn "slock")
